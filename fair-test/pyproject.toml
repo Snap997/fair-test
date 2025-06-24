@@ -1,0 +1,35 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "fair-test"
+version = "1.0.0"
+description = ""
+license = "Apache-2.0"
+dependencies = [
+    "flwr[simulation]>=1.19.0",
+    "flwr-datasets[vision]>=0.5.0",
+    "scikit-learn>=1.6.1",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["."]
+
+[tool.flwr.app]
+publisher = "AlessandroPinto"
+
+[tool.flwr.app.components]
+serverapp = "fair_test.server_app:app"
+clientapp = "fair_test.client_app:app"
+
+[tool.flwr.app.config]
+num-server-rounds = 5
+penalty = "l2"
+local-epochs = 10
+alpha=10
+[tool.flwr.federations]
+default = "local-simulation"
+
+[tool.flwr.federations.local-simulation]
+options.num-supernodes = 10
