@@ -11,6 +11,7 @@ dependencies = [
     "flwr[simulation]>=1.19.0",
     "flwr-datasets[vision]>=0.5.0",
     "scikit-learn>=1.6.1",
+    "fairlearn"
 ]
 
 [tool.hatch.build.targets.wheel]
@@ -24,10 +25,11 @@ serverapp = "fair_test.server_app:app"
 clientapp = "fair_test.client_app:app"
 
 [tool.flwr.app.config]
-num-server-rounds = 5
+num-server-rounds = 20
 penalty = "l2"
 local-epochs = 10
 alpha=10
+reweighting-strategy = "local"
 [tool.flwr.federations]
 default = "local-simulation"
 
